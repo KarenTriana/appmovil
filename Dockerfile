@@ -1,14 +1,15 @@
 # Usar una imagen base ligera de Alpine Linux
 FROM alpine:latest
 
-# Instalar curl para descargar PocketBase y tar para descomprimir
-RUN apk add --no-cache curl tar
+# Instalar curl y unzip para descargar y descomprimir el archivo .zip
+RUN apk add --no-cache curl unzip
 
-# Descargar PocketBase desde GitHub (reemplaza con la URL correcta de la versión deseada)
-RUN curl -L https://github.com/pocketbase/pocketbase/releases/download/v0.8.4/pocketbase_0.8.4_linux_amd64.tar.gz -o pocketbase.tar.gz && \
-    ls -l pocketbase.tar.gz && \
-    tar -xvzf pocketbase.tar.gz && \
-    rm pocketbase.tar.gz
+# Descargar PocketBase desde GitHub y descomprimir el archivo zip
+RUN curl -L https://github.com/pocketbase/pocketbase/releases/download/v0.23.3/pocketbase_0.23.3_linux_amd64.zip -o pocketbase.zip && \
+    echo "Verificando la descarga..." && \
+    ls -l pocketbase.zip && \
+    unzip pocketbase.zip && \
+    rm pocketbase.zip
 
 # Exponer el puerto donde PocketBase corre por defecto
 EXPOSE 8090
