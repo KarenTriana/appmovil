@@ -14,5 +14,8 @@ RUN curl -L https://github.com/pocketbase/pocketbase/releases/download/v0.23.3/p
 # Exponer el puerto donde PocketBase corre por defecto
 EXPOSE 8090
 
+# Volumen para almacenar los datos de PocketBase de manera persistente
+VOLUME ["/data"]
+
 # Iniciar PocketBase
-CMD ["./pocketbase", "serve"]
+CMD ["./pocketbase", "serve", "--http", "0.0.0.0:8090", "--dir", "/data"]
